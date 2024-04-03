@@ -48,3 +48,6 @@ Receiving a private message:
 1. Server forwards the message to 1 user.
 2. Client receives and displays the message.
 3. Reply possible if chat is open with other person.
+
+**Disclaimers:**
+Generative AI used as a teaching tool, generate examples, improving code and to improve documentation
