@@ -4,7 +4,7 @@
 
 ### Distributed chat system UML + Sequence diagram:
 
-![UML+sequence.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/0949e1fa-4b61-4f3d-aa43-8dcd0986b2a6/18f1bea6-e9d6-4f91-b290-b0d4e15ba1fb/UMLsequence.png)
+![UML+sequence.png](UML+sequence.png)
 
 ### Architecture of the system
 
