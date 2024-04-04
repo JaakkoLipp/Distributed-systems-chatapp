@@ -1,6 +1,7 @@
 import socket
 import threading
 
+#connect to desired IP and send username on connect to server for identification
 def connect_to_server(username, addr):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
@@ -11,6 +12,7 @@ def connect_to_server(username, addr):
         print(f"Failed to connect to the chat server: {e}")
         return None
 
+# threaded, show new messages on arrival
 def receive_messages(client):
     while True:
         try:
@@ -21,6 +23,7 @@ def receive_messages(client):
             client.close()
             break
 
+# channel messages
 def send_message(client_socket):
     while True:
         message = input("Type your message (or /quit): ")
@@ -28,6 +31,7 @@ def send_message(client_socket):
             break
         client_socket.send(message.encode('utf-8'))
 
+# 1 to 1 messages, uses special format 
 def private_message(client_socket):
     receiver = input("Recipient's username: ")
     print("Enter your private message below (type /quit to return to main menu):")
@@ -35,12 +39,15 @@ def private_message(client_socket):
         message = input("")
         if message == "/quit":
             break
+        # unique format for private messages
         full_command = f"/msg:{receiver}:{message}"
         client_socket.send(full_command.encode('utf-8'))
 
+# menu and function calls
 def main():
     client_socket = None
     while True:
+        
         if client_socket is None:
             # Connect
             server = input("Enter server IP (localhost): ")
@@ -49,6 +56,8 @@ def main():
             username = input("Enter your username: ")
             if (username == ""):
                 username="user"
+            
+            # login to server
             print(f"Welcome, {username}! Connecting to the chat server...")
             client_socket = connect_to_server(username, server)
             if client_socket:
@@ -58,6 +67,8 @@ def main():
             else:
                 print("Failed to connect, exiting...")
                 break
+        
+        # run menu if connected
         else:
             print("\n2. Send a private message")
             print("3. Join a text channel")

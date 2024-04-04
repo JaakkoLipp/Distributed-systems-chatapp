@@ -12,7 +12,6 @@ clients = {}
 channels = {"general": [], "testing": [], "channel 3": []}
 
 def broadcast_to_channel(channel, message):
-    """Broadcast a message to all clients in a channel."""
     for client in channels[channel]:
         try:
             client.send(message.encode('utf-8'))
@@ -20,7 +19,6 @@ def broadcast_to_channel(channel, message):
             print(f"Broadcast failed: {e}")
 
 def remove_client(client_socket):
-    """Remove a client from the server and all associated data."""
     info = clients.pop(client_socket, {})
     if info and info["channel"]:
         channels[info["channel"]].remove(client_socket)
@@ -34,7 +32,7 @@ def client_thread(client_socket):
             if not message:
                 break  # Client disconnected
 
-            # First message == username
+            # first message == username
             if username is None:
                 username = message
                 clients[client_socket] = {"username": username, "channel": None}
@@ -90,7 +88,7 @@ def start_server():
     server_socket.listen()
     print("Server is listening for connections...")
 
-    # Accept new client connections and start a new thread for each client
+    # accept new client connections and start a new thread for each client
     while True:
         client_socket, _ = server_socket.accept()
         print("New connection established.")
